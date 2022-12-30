@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Split Audio</title>
+    <style>
+        table, th, td {
+            border: 1px solid;
+            padding: 10px;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+<div style="padding:12px; width:fit-content;">
+    <h1>Split Audio</h1>
+    <form method="post" enctype="multipart/form-data">
+        Audio File : <input type="file" name="audioFile" accept="audio/*" required/>
+        <br>
+        Name File : <input type="file" name="nameFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required/>
+        <br>
+        <input type="submit" value="Upload" style="margin-top:20px;"/>
+    </form>
+</div>
+<br> <br>
+{% if chunked_files %}
+<div>
+    <table>
+        <tr>
+            <th>S.No</th>
+            <th>File Name</th>
+            <th>Audio Player</th>
+            <th><a href="/download_all/{{folder_name}}">Download All</a> </th>
+        </tr>
+        {% for file in chunked_files %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ file }}</td>
+            <td><audio controls><source src="/download/{{folder_name}}/{{file}}"></audio></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+</body>
+</html>
